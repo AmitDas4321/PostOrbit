@@ -93,10 +93,16 @@ def tg_send_message(chat_id, caption, cfg):
       - send_as_animation (bool): if True, use sendAnimation regardless of extension
       - has_spoiler (bool): included only when sending as photo (sendPhoto)
       - parse_mode (str): HTML/Markdown etc. (default "HTML")
+      - protect_content (bool): if True, prevents forwarding/saving
       - buttons_enable, button_count, buttons: used by build_reply_markup
     """
     parse_mode = cfg.get("parse_mode", "HTML")
     reply_markup = build_reply_markup(cfg)
+
+    def apply_common_flags(data: dict):
+        # protect_content is supported in sendMessage/sendPhoto/sendDocument/sendAnimation
+        if cfg.get("protect_content") is True:
+            data["protect_content"] = True
 
     def _post(url, data, files=None, timeout=30):
         try:
@@ -127,6 +133,8 @@ def tg_send_message(chat_id, caption, cfg):
                 "caption": caption,
                 "parse_mode": parse_mode,
             }
+            apply_common_flags(data)
+
             if reply_markup:
                 data["reply_markup"] = json.dumps(reply_markup)
 
@@ -141,21 +149,24 @@ def tg_send_message(chat_id, caption, cfg):
                 "caption": caption,
                 "parse_mode": parse_mode,
             }
+            apply_common_flags(data)
+
             if reply_markup:
                 data["reply_markup"] = json.dumps(reply_markup)
 
             with open(media_path, "rb") as f:
                 return _post(url, data, files={"animation": f})
 
-        # Default: send as photo (static, first frame for animated GIFs)
+        # Default: send as photo
         url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
         data = {
             "chat_id": chat_id,
             "caption": caption,
             "parse_mode": parse_mode,
         }
+        apply_common_flags(data)
 
-        # has_spoiler is supported for photos; include only when sending photo
+        # has_spoiler is supported for photos
         if cfg.get("has_spoiler") is True:
             data["has_spoiler"] = True
 
@@ -172,6 +183,8 @@ def tg_send_message(chat_id, caption, cfg):
         "text": caption,
         "parse_mode": parse_mode,
     }
+    apply_common_flags(data)
+
     if reply_markup:
         data["reply_markup"] = json.dumps(reply_markup)
 
@@ -208,7 +221,6 @@ def explain_common_errors(resp):
         print("- Convert GIF to MP4 (video) and send as animation, or host externally.")
 
     else:
-        # Generic helpful info
         if desc:
             print(f"\nTelegram error ({code}): {resp.get('description')}")
 
