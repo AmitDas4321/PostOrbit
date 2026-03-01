@@ -206,6 +206,3 @@ MIT License © 2026 Amit Das
   <b>Made with ❤️ by <a href="https://amitdas.site">Amit Das</a></b><br>
   ☕ Support development: <a href="https://paypal.me/AmitDas4321">PayPal.me/AmitDas4321</a>
 </p>
----
-
-If you want, I can also create a **premium GitHub banner (1280×640) specifically sized for your PostOrbit repo header**.
