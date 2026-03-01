@@ -128,35 +128,19 @@ Example with colors:
 ```json
 {
   "buttons": [
-    {
-      "text": "View Repository 💻",
-      "style": "success",
-      "url": "https://github.com/AmitDas4321/PostOrbit"
-    },
-    {
-      "text": "Join Channel 📢",
-      "style": "primary",
-      "url": "https://t.me/BlueOrbitDevs"
-    }
+    { "text": "View Repository 💻", "style": "success", "url": "https://github.com/AmitDas4321/PostOrbit" },
+    { "text": "Join Channel 📢", "style": "primary", "url": "https://t.me/BlueOrbitDevs" }
   ]
 }
 ````
 
 ### Disable color (default button)
 
-If you don't want colored buttons, remove the `style` field:
+If you don't want colored buttons, set the `style` value to an empty string:
 
 ```json
-{
-  "text": "Join Channel 📢",
-  "url": "https://t.me/BlueOrbitDevs"
-}
-```
-
-Or use:
-
-```json
-"style": ""
+{ "text": "View Repository 💻", "style": "", "url": "https://github.com/AmitDas4321/PostOrbit" },
+    { "text": "Join Channel 📢", "style": "", "url": "https://t.me/BlueOrbitDevs" }
 ```
 
 which will show the default Telegram button.
