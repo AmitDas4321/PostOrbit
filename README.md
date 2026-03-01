@@ -111,6 +111,62 @@ Example:
 }
 ```
 
+### 🎨 Button Color (style) Usage
+
+PostOrbit supports optional button colors using the `style` field.
+
+Available styles:
+
+| Style | Color | Example |
+|------|------|---------|
+| `primary` | 🔵 Blue | Main action |
+| `success` | 🟢 Green | Confirm / Positive action |
+| `danger` | 🔴 Red | Warning / Delete |
+
+Example with colors:
+
+```json
+{
+  "buttons": [
+    {
+      "text": "View Repository 💻",
+      "style": "success",
+      "url": "https://github.com/AmitDas4321/PostOrbit"
+    },
+    {
+      "text": "Join Channel 📢",
+      "style": "primary",
+      "url": "https://t.me/BlueOrbitDevs"
+    }
+  ]
+}
+````
+
+### Disable color (default button)
+
+If you don't want colored buttons, remove the `style` field:
+
+```json
+{
+  "text": "Join Channel 📢",
+  "url": "https://t.me/BlueOrbitDevs"
+}
+```
+
+Or use:
+
+```json
+"style": ""
+```
+
+which will show the default Telegram button.
+
+### Notes
+
+* `style` is optional
+* If not specified, Telegram shows default button
+* Invalid style values will be ignored
+
 ---
 
 ## ▶️ Usage
